@@ -43,6 +43,8 @@ def mergeSortedLists(a, b):
             l.append(b.pop(0))
     return l + a + b
 
+#more info http://stackoverflow.com/questions/4173225/my-implementation-of-merging-two-sorted-lists-in-linear-time-what-could-be-imp
+
 # Note: the solution above is kind of cute, but unforunately list.pop(0)
 # is not constant time with the standard python list implementation, so
 # the above is not strictly linear time.
