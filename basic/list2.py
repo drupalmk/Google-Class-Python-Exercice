@@ -27,6 +27,8 @@ def remove_adjacent2(nums):
        removed_list.append(number)
        numberHolder = number
   return removed_list
+  
+#more info http://stackoverflow.com/questions/2488651/trouble-with-this-python-newbie-exercise-using-lists-and-finding-if-two-adjacen
 
 # E. Given two lists sorted in increasing order, create and return a merged
 # list of all the elements in sorted order. You may modify the passed in lists.
