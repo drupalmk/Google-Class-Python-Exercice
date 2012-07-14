@@ -21,8 +21,12 @@
 # and last chars of the string are the same.
 # Note: python does not have a ++ operator, but += works.
 def match_ends(words):
-  # +++your code here+++
-  return
+  counter = 0
+  for word in words:
+      if len(word) >= 2:
+          if word[0] == word[-1]:
+              counter += 1
+  return counter
 
 
 # B. front_x
@@ -33,8 +37,16 @@ def match_ends(words):
 # Hint: this can be done by making 2 lists and sorting each of them
 # before combining them.
 def front_x(words):
-  # +++your code here+++
-  return
+  xs = []
+  others = []
+  for w in words:
+     if w[0] == 'x':
+         xs.append(w)
+     else:
+         others.append(w)
+  xs = sorted(xs)
+  others = sorted(others)
+  return xs + others
 
 
 
@@ -44,9 +56,17 @@ def front_x(words):
 # e.g. [(1, 7), (1, 3), (3, 4, 5), (2, 2)] yields
 # [(2, 2), (1, 3), (3, 4, 5), (1, 7)]
 # Hint: use a custom key= function to extract the last element form each tuple.
+
+def getLast(tuple):
+    return tuple[-1]
+
 def sort_last(tuples):
-  # +++your code here+++
-  return
+  return sorted(tuples, key=getLast)
+  
+
+from operator import itemgetter
+def sort_last_with_itemgetter(tuples):
+    return sorted(tuples, key=itemgetter(-1))
 
 
 # Simple provided test() function used in main() to print
@@ -83,6 +103,12 @@ def main():
   test(sort_last([(2, 3), (1, 2), (3, 1)]),
        [(3, 1), (1, 2), (2, 3)])
   test(sort_last([(1, 7), (1, 3), (3, 4, 5), (2, 2)]),
+       [(2, 2), (1, 3), (3, 4, 5), (1, 7)])
+  test(sort_last_with_itemgetter([(1, 3), (3, 2), (2, 1)]),
+       [(2, 1), (3, 2), (1, 3)])
+  test(sort_last_with_itemgetter([(2, 3), (1, 2), (3, 1)]),
+       [(3, 1), (1, 2), (2, 3)])
+  test(sort_last_with_itemgetter([(1, 7), (1, 3), (3, 4, 5), (2, 2)]),
        [(2, 2), (1, 3), (3, 4, 5), (1, 7)])
 
 
