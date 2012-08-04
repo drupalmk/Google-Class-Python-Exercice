@@ -54,6 +54,54 @@ def mergeSortedLists(a, b):
 
 #more info http://stackoverflow.com/questions/4173225/my-implementation-of-merging-two-sorted-lists-in-linear-time-what-could-be-imp
 
+#probably best solution:
+
+def linear_merge2(list1, list2):
+    """
+    >>> a = [1, 3, 5, 7]
+    >>> b = [2, 4, 6, 8]
+    >>> [i for i in linear_merge(a, b)]
+    [1, 2, 3, 4, 5, 6, 7, 8]
+    >>> [i for i in linear_merge(b, a)]
+    [1, 2, 3, 4, 5, 6, 7, 8]
+    >>> a = [1, 2, 2, 3]
+    >>> b = [2, 2, 4, 4]
+    >>> [i for i in linear_merge(a, b)]
+    [1, 2, 2, 2, 2, 3, 4, 4]
+    """
+    list1 = iter(list1)
+    list2 = iter(list2)
+
+    value1 = next(list1)
+    value2 = next(list2)
+
+    # We'll normally exit this loop from a next() call raising StopIteration, which is
+    # how a generator function exits anyway.
+    while True:
+        if value1 <= value2:
+            # Yield the lower value.
+            yield value1
+            try:
+                # Grab the next value from list1.
+                value1 = next(list1)
+            except StopIteration:
+                # list1 is empty.  Yield the last value we received from list2, then
+                # yield the rest of list2.
+                yield value2
+                while True:
+                    yield next(list2)
+        else:
+            yield value2
+            try:
+                value2 = next(list2)
+
+            except StopIteration:
+                # list2 is empty.
+                yield value1
+                while True:
+                    yield next(list1)
+
+
 # Note: the solution above is kind of cute, but unforunately list.pop(0)
 # is not constant time with the standard python list implementation, so
 # the above is not strictly linear time.
