@@ -47,7 +47,30 @@ def main():
   if len(args) == 0:
     print "error: must specify one or more dirs"
     sys.exit(1)
-
+  sdir = args[0]  
+  print sdir
+  filenames = os.listdir(sdir)
+  special_filenames = []
+  for filename in filenames:
+    match = re.search(r'__\w+__.\w+', filename)
+    if match:
+      special_filenames.append(os.path.abspath(filename))
+  
+  if todir:
+    #print todir
+    if os.path.exists(todir):
+      for filename in special_filenames:
+        shutil.copy(filename, todir)
+    else:
+      sys.stderr.write("todir directory doesn't exists")
+      print
+  elif tozip:
+    cmd = 'zip -j ' + tozip
+    (status, output) = commands.getstatusoutput(cmd + ' ' + ' '.join(special_filenames))
+    if status:
+      sys.stderr.write("Error on zipping files: " + output)
+    else:
+      print output
   # +++your code here+++
   # Call your functions
   
