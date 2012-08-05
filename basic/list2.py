@@ -55,6 +55,15 @@ def mergeSortedLists(a, b):
 #more info http://stackoverflow.com/questions/4173225/my-implementation-of-merging-two-sorted-lists-in-linear-time-what-could-be-imp
 
 #probably best solution:
+"""
+Here's a generator approach. You've probably noticed that a whole lot of these "generate lists" can be done well as generator functions. They're very useful: they don't require you to generate the whole list before using data from it, to keep the whole list in memory, and you can use them to directly generate many data types, not just lists.
+
+This works if passed any iterator, not just lists.
+
+This approach also passes one of the more useful tests: it behaves well when passed an infinite or near-infinite iterator, eg. linear_merge(xrange(10**9), xrange(10**9)).
+
+The redundancy in the two cases could probably be reduced, which would be useful if you wanted to support merging more than two lists, but for clarity I didn't do that here.
+"""
 
 def linear_merge2(list1, list2):
     """
@@ -123,30 +132,44 @@ def test(got, expected):
 
 # Calls the above functions with interesting inputs.
 def main():
-  print 'remove_adjacent'
-  test(remove_adjacent([1, 2, 2, 3]), [1, 2, 3])
-  test(remove_adjacent([2, 2, 3, 3, 3]), [2, 3])
-  test(remove_adjacent([]), [])
-  print 'remove_adjacent2'
-  test(remove_adjacent2([1, 2, 2, 3]), [1, 2, 3])
-  test(remove_adjacent2([2, 2, 3, 3, 3]), [2, 3])
-  test(remove_adjacent2([]), [])
+    
 
-  print
+  #print 'remove_adjacent'
+  #test(remove_adjacent([1, 2, 2, 3]), [1, 2, 3])
+  #test(remove_adjacent([2, 2, 3, 3, 3]), [2, 3])
+  #test(remove_adjacent([]), [])
+  #print 'remove_adjacent2'
+  #test(remove_adjacent2([1, 2, 2, 3]), [1, 2, 3])
+  #test(remove_adjacent2([2, 2, 3, 3, 3]), [2, 3])
+  #test(remove_adjacent2([]), [])
+
+  #print
+  #print 'linear_merge'
+  #test(linear_merge(['aa', 'xx', 'zz'], ['bb', 'cc']),
+   #    ['aa', 'bb', 'cc', 'xx', 'zz'])
+  #test(linear_merge(['aa', 'xx'], ['bb', 'cc', 'zz']),
+  #     ['aa', 'bb', 'cc', 'xx', 'zz'])
+  #test(linear_merge(['aa', 'aa'], ['aa', 'bb', 'bb']),
+  #     ['aa', 'aa', 'aa', 'bb', 'bb'])
+  #print 'other linear_merge'
+  #test(mergeSortedLists(['aa', 'xx', 'zz'], ['bb', 'cc']),
+  #     ['aa', 'bb', 'cc', 'xx', 'zz'])
+  #test(mergeSortedLists(['aa', 'xx'], ['bb', 'cc', 'zz']),
+  #     ['aa', 'bb', 'cc', 'xx', 'zz'])
+  #test(mergeSortedLists(['aa', 'aa'], ['aa', 'bb', 'bb']),
+  #     ['aa', 'aa', 'aa', 'bb', 'bb'])
+
+  foo = 'foo'
+  foo = 'hello word';
+  
   print 'linear_merge'
-  test(linear_merge(['aa', 'xx', 'zz'], ['bb', 'cc']),
+  test(linear_merge2(['aa', 'xx', 'zz'], ['bb', 'cc']),
        ['aa', 'bb', 'cc', 'xx', 'zz'])
-  test(linear_merge(['aa', 'xx'], ['bb', 'cc', 'zz']),
+  test(linear_merge2(['aa', 'xx'], ['bb', 'cc', 'zz']),
        ['aa', 'bb', 'cc', 'xx', 'zz'])
-  test(linear_merge(['aa', 'aa'], ['aa', 'bb', 'bb']),
+  test(linear_merge2(['aa', 'aa'], ['aa', 'bb', 'bb']),
        ['aa', 'aa', 'aa', 'bb', 'bb'])
-  print 'other linear_merge'
-  test(mergeSortedLists(['aa', 'xx', 'zz'], ['bb', 'cc']),
-       ['aa', 'bb', 'cc', 'xx', 'zz'])
-  test(mergeSortedLists(['aa', 'xx'], ['bb', 'cc', 'zz']),
-       ['aa', 'bb', 'cc', 'xx', 'zz'])
-  test(mergeSortedLists(['aa', 'aa'], ['aa', 'bb', 'bb']),
-       ['aa', 'aa', 'aa', 'bb', 'bb'])
+
 
 
 if __name__ == '__main__':

@@ -34,7 +34,28 @@ Suggested milestones for incremental development:
  -Fix main() to use the extract_names list
 """
 
+
 def extract_names(filename):
+  f = open(filename, 'r')
+  lines = f.read()
+  f.close()
+  output = []
+  year = re.search(r'Popularity in (\d{4})', lines).group(1)
+  output.append(year)
+  
+  matches = re.findall(r'<tr align="right"><td>(\d+)</td><td>(\w+)</td><td>(\w+)</td>', lines)
+  for names in matches:
+    print names
+    rank = names[0]
+    m = names[1]
+    f = names[2]
+    print rank
+    print m
+    print f
+    output.append(m + ' ' + rank)
+    output.append(f + ' ' + rank)
+  output = sorted(output)
+  print output
   """
   Given a file name for baby.html, returns a list starting with the year string
   followed by the name-rank strings in alphabetical order.
@@ -59,6 +80,8 @@ def main():
   if args[0] == '--summaryfile':
     summary = True
     del args[0]
+  else:  
+    extract_names(args[0])
 
   # +++your code here+++
   # For each filename, get the names, then either print the text output
